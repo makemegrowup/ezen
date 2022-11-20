@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JSON 객체 반환</title>
+</head>
+<body>
+<p id="access"></p>
+<script>
+data = '{"name":"홍길동","age":33,"city":"서울"}';
+cnv = JSON.parse(data);
+document.getElementById("access").innerHTML += cnv.name + ", " + cnv.age + ", " + cnv.city;
+</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<td id="mypage_main_wrap">
+        <iframe id="lifetime" name="lifetime" style="z-index:10000;position:absolute; width:430px; height:465px; left:0; top:0; display:none; border : 1px solid #000000;" frameborder="no" scrolling="no"></iframe><table border="0" cellspacing="0" cellpadding="0" id="mypage_wrap_table">
+        <tbody><tr>
+            <td id="mypage_submain_wrap">
+            <script type="text/javascript">
+var secede = function() {
+    var _reason_obj = document.getElementById('reason');
+    var chk_value = _reason_obj.value.replace(/^\s+|\s+$/, '');
+    if (chk_value.length > 200) {
+        alert('탈퇴사유는 200자이내로 작성해주시기 바랍니다.');
+        _reason_obj.focus();
+        return;
+    }
+    document.getElementById('exit-reason').value = _reason_obj.value;
+        //언어팩 이제 사용안함 텍스트 수정시 직접 삽입
+    if (confirm('탈퇴할 경우 회원관련 데이터가 복구되지 않습니다.\n정말로 탈퇴를 하시겠습니까?')) { 
+            document.form1.submit();
+    }
+    
+}
+</script>
+<form name="form1" method="post" action="login.html">
+    <input type="hidden" name="type" value="exit">
+    <input type="hidden" name="exit-reason" id="exit-reason">
+    <input type="hidden" name="userexit_msg" id="userexit_msg">
+</form>
+
+<!-- 회원탈퇴 신청 개별 디자인 시작 -->
+<style type="text/css">
+#my_contents .scede-radio { width:100%; margin: 0 0 0 100px; padding-top:30px; color:#000; }
+#my_contents .scede-radio dt { padding-bottom:25px; font-size:16px; font-weight:bold; }
+#my_contents .scede-radio dd,
+#my_contents .scede-radio dd ul { padding:0; margin:0; }
+#my_contents .scede-radio dd ul li { word-break: break-all; float:left; width:40%; padding-bottom:25px; font-size:14px; list-style:none; }
+#my_contents .scede-radio dd ul li input[type=radio] { margin:-3px 20px 0 0; vertical-align:middle; }
+textarea::-webkit-input-placeholder { color:#ccc; }
+textarea::-moz-placeholder { color:#ccc; }
+textarea:-ms-input-placeholder { color:#ccc; }
+textarea:-moz-placeholder { color:#ccc; }
+#my_contents .scede-frm { clear:both; }
+#my_contents .scede-frm fieldset { padding:0; margin:0; border:0 none; }
+#my_contents .scede-frm legend { display:none; }
+#my_contents .scede-frm textarea { overflow-x:hidden; overflow-y:auto; width:100%; height:190px; padding:20px; font-size:14px; border:1px solid #dcdcdc; outline:none; }
+#my_contents .count { color:#ccc; text-align:right; font-size:14px; }
+#my_contents .count span { color:#000; }
+</style>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" id="my_top_title">
+<tbody><tr>
+    <td width="160"><img src="../img/mys2_exituser_title.gif" alt="USER SECEDE" align="absmiddle"></td>
+    <td>탈퇴 사유를 적어주시면 쇼핑몰 운영에 적극 반영하겠습니다.</td>
+</tr>
+</tbody></table>
+<div id="my_contents">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" id="mypage_exituser">
+    <tbody><tr>
+        <td colspan="2" class="topline line">
+            <div class="roundbox lefttop"></div>
+            <div class="roundbox righttop"></div>
+        </td>
+    </tr>
+    <tr id="mypage_notice">
+        <td width="500" class="leftline">
+            <ul>
+                <li>저희 쇼핑몰의 부족했던 점과 아쉬웠던 점을 적어주십시오.<br>더 좋은 모습으로 발전하도록 최선을 다하겠습니다</li>
+                <li style="margin-top:20px;">앞으로 더 나은 모습으로 고객님을 다시 만날 수 있도록 노력하겠습니다.<br>그동안 이용해주신 것을 진심으로 감사 드립니다. </li>
+            </ul>
+        </td>
+        <td align="right" class="rightline"><img src="../img/mys2_exituser_icon.gif"></td>
+    </tr>
+    <tr>
+        <td colspan="2" class="bottomline line">
+            <div class="roundbox leftbottom"></div>
+            <div class="roundbox rightbottom"></div>
+        </td>
+    </tr>
+    </tbody></table>
+    
+    <div class="scede-frm">
+        <fieldset>
+            <legend>탈퇴 사유 작성 폼</legend>
+            <div id="reason_div_view">
+                
+                    <table width="100%" border="0" cellspacing="0" cellpadding="5" id="mypage_exit">
+                        <tbody><tr>
+                            <td width="80" class="exit_title" align="center">사유</td>
+                            <td class="exit_reason"><textarea id="reason" name="reason" rows="10" cols="70"></textarea></td>
+                        </tr>
+                    </tbody></table>
+                
+            </div>
+            <div id="exit_button">
+                <a href="javascript:secede();"><img src="../img/mys2_btn_exituser_ok.gif" alt="회원탈퇴"></a>
+                <a href="javascript:history.go(-1);"><img src="../img/mys2_btn_exituser_cancel.gif" alt="취소하기"></a>
+            </div>
+        </fieldset>
+    </div><!-- .scede-frm -->
+</div>
+<!-- 회원탈퇴 신청 개별 디자인 끝 -->
+            </td>
+        </tr>
+<script type="text/javascript">
+if (document.getElementById('left_myexituser')) {
+    document.getElementById('left_myexituser').style.fontWeight = "bold";
+}
+ 
+</script>
+
+<script type="text/javascript" src="/js/mypage_myordersummary.js"></script>
+<form name="orderdetail2" action="/shop/orderpop.html" method="post" target="orderdetail2"></form>
+    <input type="hidden" name="ordernum">
+
+<script>
+//주문조회 페이지 링크
+function order_detail(temp){
+    window.open("about:blank","orderdetail2","width=683,height=500,scrollbars=yes");
+    document.orderdetail2.ordernum.value=temp;
+    document.orderdetail2.submit();
+}
+</script>
+
+<script type="text/javascript">
+    function nhn_anchor(pid) {
+        
+        
+    }
+</script>
+</tbody></table></td>
+</body>
+</html>

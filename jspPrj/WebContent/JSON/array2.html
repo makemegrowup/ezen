@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>배열 데이터</title>
+<script type="text/javascript">
+function business() {
+	company = {
+			"name" : "(주)어깨동무",
+			"since" : 2013,
+			"department" : [ "기획팀", "영업팀", "디자인팀", "개발팀"],
+			"biz" : ["소프트웨어개발", "통신판매업", "위치정보서비스"]
+	}
+	document.getElementById("name").innerHTML = company.name;
+	document.getElementById("since").innerHTML = company.since;
+	deptli = "";
+	for(var i = 0; i < company.department.length; i++) {
+		deptli + "<li>" + company.department[i] + "</li>";
+	}
+	document.getElementById("department").innerHTML = deptil;
+	bizli = "";
+	for(var i = 0; i < company.biz.length; i++) {
+		bizli += "<li>" + company.biz[i] + "</li>";
+	}
+	document.getElementById("biz").innerHTML = bizli;
+}
+</script>
+</head>
+<body>
+	<p id = "name"></p>
+	<p><strong>설립연도: </strong><span id="since"></span></p>
+	<p> 주요 사업 부서 </p>
+	<ul id = "department"></ul>
+	<p> 주요 사업 분야</p>
+	<ul id="biz"></ul>
+	
+</body>
+</html>
