@@ -21,14 +21,14 @@
 			<ul class="navbar-nav mx-auto">
 				<li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
 				<c:choose>
-					<c:when test="${!empty sessionScope.userId }">
+					<c:when test="${!empty sessionScope.memberId }">
 						<li class="nav-item"><a class="nav-link" href="./BoardList.do">게시판</a></li>				
 					</c:when>
 					<c:otherwise>
 						<li class="nav-item"><a class="nav-link" href="./LoginView.me">게시판</a></li>
 					</c:otherwise>
 				</c:choose>
-				<li class="nav-item"><a class="nav-link" href="./MemberRegister.me">회원가입</a></li>
+				<li class="nav-item"><a class="nav-link" href="./MemberRegisterView.me">회원가입</a></li>
 				<li class="nav-item active"><a class="nav-link" href="./LoginView.me">로그인<span class="sr-only">(current)</span></a></li>
 			</ul>
 		</div>
@@ -39,23 +39,23 @@
 			<div id="login-row" class="row justify-content-center align-items-center">
 				<div id="login-column" class="col-md-6">
 					<div id="login-box" class="col-md-12">
-						<form id="login-form" class="form" action="" method="post">
+						<form id="loginForm" class="form" action="./Login.me" method="post">
 							<h3 class="text-center text-info">Login</h3>
 							<div class="form-group">
-								<label for="username" class="text-info">ID:</label><br> <input type="text" name="username" id="username"
+								<label for="username" class="text-info">ID:</label><br> <input type="text" name="memberId" id="memberId"
 									class="form-control">
 							</div>
 							<div class="form-group">
-								<label for="password" class="text-info">Password:</label><br> <input type="text" name="password"
-									id="password" class="form-control">
+								<label for="password" class="text-info">Password:</label><br> <input type="password" name="memberPwd"
+									id="memberPwd" class="form-control">
 							</div>
 							<div class="form-group">
-								<label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me"
-										name="remember-me" type="checkbox"></span></label><br>
-								<button type="button" class="btn btn-info btn-md">로그인</button>
+								<label for="save" class="text-info"><span>Remember me</span> <span><input id="save"
+										name="save" type="checkbox"></span></label><br>
+								<button type="submit" class="btn btn-info btn-md">로그인</button>
 							</div>
 							<div id="register-link" class="text-right">
-								<a href="user_reg.jsp" class="text-info">회원가입</a>
+								<a href="./MemberRegisterView.me" class="text-info">회원가입</a>
 							</div>
 						</form>
 					</div>

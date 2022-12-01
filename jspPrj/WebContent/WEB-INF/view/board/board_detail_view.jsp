@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:if test="${empty sessionScope.memberId}">
- <script type="text/javascript">
+	<script type="text/javascript">
 		location.href = "./LoginView.me"
 	</script>
 </c:if>
@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>KSH-pack 게시판</title>
+<title>KSH-pack 게시글</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -29,7 +29,7 @@
 				<li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
 				<c:choose>
 					<c:when test="${!empty sessionScope.memberId }">
-						<li class="nav-item active"><a class="nav-link" href="./BoardList.do">게시판<span class="sr-only">(current)</span></a></li>				
+						<li class="nav-item active"><a class="nav-link" href="./BoardList.do">게시판<span class="sr-only">(current)</span></a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="nav-item"><a class="nav-link" href="./LoginView.me">게시판</a></li>
@@ -41,50 +41,55 @@
 			</ul>
 		</div>
 	</nav>
-	<!-- Board -->
+	<!-- Board Insert Form -->
+
 	<div class="container-fluid">
 		<div class="row justify-content-center">
-			<div class="col-8">
+			<div class="col-md-8 mt-3 mb-3">
 				<div class="card">
 					<div class="card-header">
-						<h3>글목록</h3>
-						<p align="right">
-							전체 글 : <strong>${listcount}</strong>
-						</p>
+						<h2 class="text-center mt-4 mb-4">게시글</h2>
 					</div>
 					<div class="card-body">
-						<div class="d-flex justify-content-end">
-								<a class="btn btn-warning float-end" href="./BoardInsertView.do">
-									<i class="fas fa-edit"></i> 글 작성
-								</a>
-						</div>
-						<table class="table table-hover table-striped text-center">
-							<thead class="thead-dark">
-								<tr>
-									<th>번호</th>
-									<th>제목</th>
-									<th>작성자</th>
-									<th>작성일</th>
-									<th>조회수</th>
-								</tr>
-							</thead>
-							<tbody>
-							<c:forEach var="board" items="${boardList}">
-								<tr>
-									<th>${board.boardNum}</th>
-									<td><a href="./BoardDetail.do?boardNum=${board.boardNum}">${board.title}</a></td>
-									<td>${board.memberId}</td>
-									<td>${board.boardRegdate}</td>
-									<td>${board.readCount}</td>
-								</tr>
-							</c:forEach>
-							</tbody>
+						<table class="table">
+							<tr>
+								<th>게시글 번호</th>
+								<td>${boardDTO.boardNum}</td>
+								<th>조회수</th>
+								<td>${boardDTO.readCount}</td>
+							</tr>
+							<tr>
+								<th>작성자</th>
+								<td>${boardDTO.memberId}</td>
+								<th>작성일</th>
+								<td>${boardDTO.boardRegdate}</td>
+							</tr>
+							<tr>
+								<th>제목</th>
+								<td>${boardDTO.title}</td>
+							</tr>
 						</table>
+						<table class="table">
+						</table>
+					<hr/>
 					</div>
+						<div class="col-12">
+						${boardDTO.content}
+						</div>
+					<hr/>
+					<div class="row">
+						<div class="col-12 text-right">
+							<input type="button" value="글수정" class="btn btn-success" onclick="location.href='./BoardUpdateView.do?boardNum=${boardDTO.boardNum}'"> 
+							<input type="button" value="글삭제" class="btn btn-warning" onclick="location.href='./BoardDeleteConfirm.do?boardNum=${boardDTO.boardNum}'">
+							<button type="button" class="btn btn-primary" onclick="location.href='./BoardList.do'">전체 게시글보기</button>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 	<!-- Footer -->
 	<hr>

@@ -42,7 +42,7 @@ public class MemberDTO {
 
 	    // 가입일 
 	    private String memberRegdate;
-
+	    
 	    public String getMemberId() {
 	        return memberId;
 	    }
@@ -152,9 +152,12 @@ public class MemberDTO {
 			return "MemberDTO [memberId=" + memberId + ", memberPwd=" + memberPwd + ", memberName=" + memberName
 					+ ", birth=" + birth + ", postalcode=" + postalcode + ", address=" + address + ", addressDetail="
 					+ addressDetail + ", addressExtra=" + addressExtra + ", cellphone=" + cellphone + ", email=" + email
-					+ ", subcellphone=" + subCellphone + ", companyNumber=" + companyNumber + ", memberRegdate="
+					+ ", subCellphone=" + subCellphone + ", companyNumber=" + companyNumber + ", memberRegdate="
 					+ memberRegdate + "]";
 		}
+
+
+		
 
 	    
 }

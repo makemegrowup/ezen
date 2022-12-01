@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 
 import ksh.common.control.Controller;
 import ksh.common.handler.HandlerAdapter;
+import ksh.login.controller.LoginController;
 import ksh.member.controller.MemberInsertController;
 import ksh.member.controller.MemberSelectAllController;
 
@@ -48,6 +49,7 @@ public class MemberDispatcherServlet extends HttpServlet{
 		else if(pathURI.equals("/MemberRegisterView.me")) {
 			handlerAdapter = new HandlerAdapter();
 			handlerAdapter.setPath("/WEB-INF/view/member/member_reg_view.jsp");
+			log.info("회원 가입 화면 뷰 확인 - " + handlerAdapter);
 		}
 		
 		else if(pathURI.equals("/MemberRegister.me")) {
@@ -58,6 +60,12 @@ public class MemberDispatcherServlet extends HttpServlet{
 		else if(pathURI.equals("/LoginView.me")) {
 			handlerAdapter = new HandlerAdapter();
 			handlerAdapter.setPath("/WEB-INF/view/login/login_view.jsp");
+			log.info("로그인 화면 뷰 확인 - " + handlerAdapter);
+		}
+		else if(pathURI.equals("/Login.me")) {
+			controller = new LoginController();
+			handlerAdapter = controller.execute(request, response);
+			log.info("로그인 확인 - " + handlerAdapter);
 		}
 		
 		if(handlerAdapter != null) {

@@ -2,6 +2,7 @@ package ksh.member.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -70,6 +71,51 @@ public class MemberDAO implements MemberService{
 		}
 		
 		return result;
+	}
+	
+	@Override
+	public MemberDTO memberLogin(MemberDTO memberDTO) {
+	
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			Context context = new InitialContext();
+			DataSource dataSource = (DataSource)context.lookup("java:comp/env/jdbc");
+			connection = dataSource.getConnection();
+			String sql = "SELECT * FROM MEMBER_INFO WHERE MEMBER_ID=?";
+			log.info("SQL - " + sql);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, memberDTO.getMemberId());
+			resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				memberDTO.setMemberName(resultSet.getString("MEMBER_NAME"));
+				memberDTO.setMemberId(resultSet.getString("MEMBER_ID"));
+				log.info("MEMBER_NAME 확인 - " + resultSet.getString("MEMBER_NAME"));
+				log.info("아이디 확인 - " + resultSet.getString("MEMBER_ID"));
+				if(resultSet.getString("MEMBER_PWD").equals(memberDTO.getMemberPwd())) {
+					memberDTO.setMemberPwd(resultSet.getString("MEMBER_PWD"));
+					log.info("비밀번호 확인 - " + resultSet.getString("MEMBER_PWD"));
+				} else {
+					memberDTO.setMemberPwd("");
+				}
+			} else {
+				memberDTO.setMemberId("");
+			}
+		} catch (Exception e) {
+			log.info("로그인 실패 - " + e);
+		} finally {
+			try {
+				resultSet.close();
+				preparedStatement.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return memberDTO;
 	}
 	
 	@Override

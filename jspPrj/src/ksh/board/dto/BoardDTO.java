@@ -1,7 +1,5 @@
 package ksh.board.dto;
 
-import java.util.Date;
-
 public class BoardDTO {
 
 	    // 게시글번호 
@@ -17,11 +15,14 @@ public class BoardDTO {
 	    private String content;
 
 	    // 게시글등록일 
-	    private Date boardRegdate;
+	    private String boardRegdate;
 
 	    // 조회수 
-	    private int readcount;
+	    private int readCount;
 
+	    // 게시판 비밀번호
+	    private String boardPwd;
+	    
 	    public int getBoardNum() {
 	        return boardNum;
 	    }
@@ -54,27 +55,38 @@ public class BoardDTO {
 	        this.content = content;
 	    }
 
-	    public Date getBoardRegdate() {
+	    public String getBoardRegdate() {
 	        return boardRegdate;
 	    }
 
-	    public void setBoardRegdate(Date boardRegdate) {
+	    public void setBoardRegdate(String boardRegdate) {
 	        this.boardRegdate = boardRegdate;
 	    }
 
-	    public int getReadcount() {
-	        return readcount;
+	    public int getReadCount() {
+	        return readCount;
 	    }
 
-	    public void setReadcount(int readcount) {
-	        this.readcount = readcount;
+	    public void setReadCount(int readCount) {
+	        this.readCount = readCount;
 	    }
+
+	    
+		public String getBoardPwd() {
+			return boardPwd;
+		}
+
+		public void setBoardPwd(String boardPwd) {
+			this.boardPwd = boardPwd;
+		}
 
 		@Override
 		public String toString() {
 			return "BoardDTO [boardNum=" + boardNum + ", memberId=" + memberId + ", title=" + title + ", content="
-					+ content + ", readcount=" + readcount + "]";
+					+ content + ", boardRegdate=" + boardRegdate + ", readCount=" + readCount + ", boardPwd=" + boardPwd
+					+ "]";
 		}
 
+		
 	    
 }

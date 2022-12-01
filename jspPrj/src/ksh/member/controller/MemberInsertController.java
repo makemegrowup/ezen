@@ -3,6 +3,9 @@ package ksh.member.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import ksh.common.control.Controller;
 import ksh.common.handler.HandlerAdapter;
 import ksh.member.dao.MemberDAO;
@@ -10,6 +13,8 @@ import ksh.member.dto.MemberDTO;
 
 public class MemberInsertController implements Controller{
 
+	private static Log log = LogFactory.getLog(MemberInsertController.class);
+	
 	@Override
 	public HandlerAdapter execute(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -44,6 +49,8 @@ public class MemberInsertController implements Controller{
 		memberDTO.setCompanyNumber(companyNumber);
 		
 		int result = memberDAO.memberInsert(memberDTO);
+		log.info(result+"개의 회원 추가");
+		
 		request.setAttribute("memberId", memberDTO.getMemberId());
 		HandlerAdapter handlerAdapter = new HandlerAdapter();
 		handlerAdapter.setPath("/WEB-INF/view/member/member_reg_result.jsp");

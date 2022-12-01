@@ -158,14 +158,14 @@ function resetEvent() {
 			<ul class="navbar-nav mx-auto">
 				<li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
 				<c:choose>
-					<c:when test="${!empty sessionScope.userId }">
+					<c:when test="${!empty sessionScope.memberId }">
 						<li class="nav-item"><a class="nav-link" href="./BoardList.do">게시판</a></li>				
 					</c:when>
 					<c:otherwise>
 						<li class="nav-item"><a class="nav-link" href="./LoginView.me">게시판</a></li>
 					</c:otherwise>
 				</c:choose>
-				<li class="nav-item active"><a class="nav-link" href="./MemberRegister.me">회원가입<span class="sr-only">(current)</span></a></li>
+				<li class="nav-item active"><a class="nav-link" href="./MemberRegisterView.me">회원가입<span class="sr-only">(current)</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="./LoginView.me">로그인</a></li>
 
 			</ul>
@@ -177,7 +177,7 @@ function resetEvent() {
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				<main class="reg-form">
+				<main class="regForm">
 					<div class="cotainer">
 						<div class="row justify-content-center">
 							<div class="col-md-8">
@@ -188,7 +188,7 @@ function resetEvent() {
 											<span class="text-danger">*</span>표시는 필수입력 항목입니다.
 									</div>
 									<div class="card-body">
-										<form name="reg-form" id="join" action="./MemberRegister.me" method="POST">
+										<form name="regForm" id="join" action="./MemberRegister.me" method="POST">
 											<div class="form-group row">
 												<label for="memberName" class="col-md-4 col-form-label text-md-right"><span class="text-danger">*</span>이름</label>
 												<div class="col-md-6">

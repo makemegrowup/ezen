@@ -9,12 +9,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>KSH-pack 게시판</title>
+<title>KSH-pack 게시글 작성</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.min.js" type="text/javascript"></script>
 <script src="https://kit.fontawesome.com/58abbffa46.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -41,50 +42,51 @@
 			</ul>
 		</div>
 	</nav>
-	<!-- Board -->
+	<!-- Board Insert Form -->
+	
 	<div class="container-fluid">
 		<div class="row justify-content-center">
-			<div class="col-8">
-				<div class="card">
-					<div class="card-header">
-						<h3>글목록</h3>
-						<p align="right">
-							전체 글 : <strong>${listcount}</strong>
-						</p>
-					</div>
-					<div class="card-body">
-						<div class="d-flex justify-content-end">
-								<a class="btn btn-warning float-end" href="./BoardInsertView.do">
-									<i class="fas fa-edit"></i> 글 작성
-								</a>
-						</div>
-						<table class="table table-hover table-striped text-center">
-							<thead class="thead-dark">
-								<tr>
-									<th>번호</th>
-									<th>제목</th>
-									<th>작성자</th>
-									<th>작성일</th>
-									<th>조회수</th>
-								</tr>
-							</thead>
-							<tbody>
-							<c:forEach var="board" items="${boardList}">
-								<tr>
-									<th>${board.boardNum}</th>
-									<td><a href="./BoardDetail.do?boardNum=${board.boardNum}">${board.title}</a></td>
-									<td>${board.memberId}</td>
-									<td>${board.boardRegdate}</td>
-									<td>${board.readCount}</td>
-								</tr>
-							</c:forEach>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
+		    <div class="col-md-8 mt-3 mb-3">
+		    	<div class="card">
+		    	<div class="card-header">
+		        <h2 class="text-center mt-4 mb-4">게시글 쓰기</h2>
+		    	</div>
+			    	<div class="card-body">
+				        <form action="./BoardInsert.do" method="post" name="boardInsertForm">
+				          <table class="table table-striped">
+				            <tr>
+				                <td>작성자</td>
+				                <td><input type="text"  class="form-control" name="memberId" value="${sessionScope.memberId}" readonly></td>
+				            </tr>
+				            <tr>
+				                <td>제목</td>
+				                <td><input type="text"  class="form-control" name="title"></td>
+				            </tr>
+				            <tr>
+				                <td>비밀번호</td>
+				                <td><input type="password"  class="form-control" name="boardPwd" placeholder="숫자 4자리"></td>
+				            </tr>
+				             
+				             <tr>
+				                <td>글내용</td>
+				                <td><textarea rows="10" cols="50" name="content" class="form-control"></textarea></td>
+				            </tr>
+				            <tr>
+				                <td colspan="2"  class="text-right">
+				                    <input type="submit" value="글쓰기" class="btn btn-success">
+				                    <input type="reset" value="다시작성" class="btn btn-warning">
+				                    <button type="button"  class="btn btn-primary" onclick="location.href='./BoardList.do'">전체 게시글보기</button>
+				                </td>
+				            </tr>
+				             
+				          </table>
+				        </form>
+			    	</div>
+		    	</div>
+		    </div>
 		</div>
 	</div>
+	
 
 	<!-- Footer -->
 	<hr>

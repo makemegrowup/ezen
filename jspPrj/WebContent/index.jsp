@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,24 +21,23 @@
 			<ul class="navbar-nav mx-auto">
 				<li class="nav-item active"><a class="nav-link" href="index.jsp">Home<span class="sr-only">(current)</span></a></li>
 				<c:choose>
-					<c:when test="${!empty sessionScope.userId }">
-						<li class="nav-item"><a class="nav-link" href="./BoardList.do">게시판</a></li>				
+					<c:when test="${!empty sessionScope.memberId }">
+						<li class="nav-item"><a class="nav-link" href="./BoardList.do">게시판</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="nav-item"><a class="nav-link" href="./LoginView.me">게시판</a></li>
+
 					</c:otherwise>
 				</c:choose>
 				<li class="nav-item"><a class="nav-link" href="./MemberRegisterView.me">회원가입</a></li>
 				<li class="nav-item"><a class="nav-link" href="./LoginView.me">로그인</a></li>
-
 			</ul>
-			<!-- <form class="form-inline">
-						<input class="form-control mr-sm-2" type="text" /> 
-						<button class="btn btn-primary my-2 my-sm-0" type="submit">
-							Search
-						</button>
-					</form>
-					 -->
+
+			<form class="form-inline">
+				<input class="form-control mr-sm-2" type="text" />
+				<button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+			</form>
+
 		</div>
 	</nav>
 	<div class="container-fluid">
