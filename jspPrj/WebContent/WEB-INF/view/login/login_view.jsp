@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>KSH-pack 로그인</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.min.js" type="text/javascript"></script>
-<title>KSH-pack</title>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-warning static-top">
@@ -19,7 +19,7 @@
 		<a class="navbar-brand" href="index.jsp">KSH-pack</a>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="navbar-nav mx-auto">
-				<li class="nav-item active"><a class="nav-link" href="index.jsp">Home<span class="sr-only">(current)</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
 				<c:choose>
 					<c:when test="${!empty sessionScope.userId }">
 						<li class="nav-item"><a class="nav-link" href="./BoardList.do">게시판</a></li>				
@@ -28,65 +28,41 @@
 						<li class="nav-item"><a class="nav-link" href="./LoginView.me">게시판</a></li>
 					</c:otherwise>
 				</c:choose>
-				<li class="nav-item"><a class="nav-link" href="./MemberRegisterView.me">회원가입</a></li>
-				<li class="nav-item"><a class="nav-link" href="./LoginView.me">로그인</a></li>
-
+				<li class="nav-item"><a class="nav-link" href="./MemberRegister.me">회원가입</a></li>
+				<li class="nav-item active"><a class="nav-link" href="./LoginView.me">로그인<span class="sr-only">(current)</span></a></li>
 			</ul>
-			<!-- <form class="form-inline">
-						<input class="form-control mr-sm-2" type="text" /> 
-						<button class="btn btn-primary my-2 my-sm-0" type="submit">
-							Search
-						</button>
-					</form>
-					 -->
 		</div>
 	</nav>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="row align-items-center">
-					<div class="col-md-2">
-						<ul class="nav flex-column">
-							<li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
-							<li class="nav-item"><a class="nav-link disabled" href="#">Messages</a></li>
-							<li class="nav-item"><a class="nav-link disabled" href="#">Messages</a></li>
-							<li class="nav-item"><a class="nav-link disabled" href="#">Messages</a></li>
-
-						</ul>
-					</div>
-					<div class="col-md-10">
-						<div class="jumbotron">
-							<h2>Hello, world!</h2>
-							<p>This is a template for a simple marketing or informational website. It includes a large callout called the
-								hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-							<p>
-								<a class="btn btn-primary btn-large" href="#">Learn more</a>
-							</p>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<a><img alt="" src="img/cloth.png"></a>
-						</div>
-						<div class="col-md-4">
-							<a><img alt="" src="img/cloth.png"></a>
-						</div>
-						<div class="col-md-4">
-							<a><img alt="" src="img/cloth.png"></a>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4"></div>
-						<div class="col-md-4"></div>
-						<div class="col-md-4"></div>
+	<div id="login">
+		<h3 class="text-center text-white pt-5">Login form</h3>
+		<div class="container">
+			<div id="login-row" class="row justify-content-center align-items-center">
+				<div id="login-column" class="col-md-6">
+					<div id="login-box" class="col-md-12">
+						<form id="login-form" class="form" action="" method="post">
+							<h3 class="text-center text-info">Login</h3>
+							<div class="form-group">
+								<label for="username" class="text-info">ID:</label><br> <input type="text" name="username" id="username"
+									class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="password" class="text-info">Password:</label><br> <input type="text" name="password"
+									id="password" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me"
+										name="remember-me" type="checkbox"></span></label><br>
+								<button type="button" class="btn btn-info btn-md">로그인</button>
+							</div>
+							<div id="register-link" class="text-right">
+								<a href="user_reg.jsp" class="text-info">회원가입</a>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</div>
-
 	<!-- Footer -->
 	<hr>
 	<footer class="page-footer font-small teal pt-2">
