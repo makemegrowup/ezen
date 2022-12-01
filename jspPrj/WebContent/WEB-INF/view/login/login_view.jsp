@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="css/style.css">
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.min.js" type="text/javascript"></script>
+<script src="https://kit.fontawesome.com/58abbffa46.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-warning static-top">
@@ -19,7 +20,7 @@
 		<a class="navbar-brand" href="index.jsp">KSH-pack</a>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="navbar-nav mx-auto">
-				<li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
+				<li class="nav-item"><a class="nav-link" href="index.jsp"><i class="fa-solid fa-house"></i>Home</a></li>
 				<c:choose>
 					<c:when test="${!empty sessionScope.memberId }">
 						<li class="nav-item"><a class="nav-link" href="./BoardList.do">게시판</a></li>				
