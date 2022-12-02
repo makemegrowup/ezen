@@ -12,7 +12,7 @@
 	if(confirm("게시글을 삭제하시겠습니까?")){
 		location.href="./BoardDelete.do?boardNum=${param.boardNum}&memberId=${sessionScope.memberId}"
 	} else {
-		location.href="./BoardDetail.do?boardNum=${param.boardNum}"
+		location.href="./BoardListDetail.do?boardNum=${param.boardNum}"
 	}
 		
 </script>

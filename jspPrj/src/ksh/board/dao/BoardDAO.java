@@ -144,7 +144,43 @@ public class BoardDAO implements BoardService{
 	
 	@Override
 	public int boardUpdate(BoardDTO boardDTO) {
-		// TODO Auto-generated method stub
+		
+		int result = 0;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			Context context = new InitialContext();
+			DataSource dataSource = (DataSource)context.lookup("java:comp/env/jdbc");
+			connection = dataSource.getConnection();
+			
+			String sql = "UPDATE BOARD SET TITLE=?, CONTENT=? WHERE BOARD_NUM=?";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, boardDTO.getTitle());
+			preparedStatement.setString(2, boardDTO.getContent());
+			preparedStatement.setInt(3, boardDTO.getBoardNum());
+			
+			result = preparedStatement.executeUpdate();
+			
+			if(result > 0) {
+				connection.commit();
+				log.info("커밋되었습니다.");
+			} else {
+				connection.rollback();
+				log.info("롤백되었습니다.");
+			}
+			
+			return result;
+		} catch (Exception e) {
+			log.info("게시글 수정 실패 - " + e);
+		} finally {
+			try {
+				preparedStatement.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		return 0;
 	}
 	

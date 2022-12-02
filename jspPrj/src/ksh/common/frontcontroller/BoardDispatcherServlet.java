@@ -11,14 +11,17 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import ksh.board.controller.BoardDeleteController;
-import ksh.board.controller.BoardDetailController;
+import ksh.board.controller.BoardListDetailController;
 import ksh.board.controller.BoardInsertController;
 import ksh.board.controller.BoardListController;
+import ksh.board.controller.BoardUpdateController;
+import ksh.board.controller.BoardUpdateViewController;
 import ksh.common.control.Controller;
 import ksh.common.handler.HandlerAdapter;
 
 public class BoardDispatcherServlet extends HttpServlet{
 
+	private static final long serialVersionUID = 1L;
 	private static Log log = LogFactory.getLog(BoardDispatcherServlet.class);
 	
 	@Override
@@ -49,14 +52,13 @@ public class BoardDispatcherServlet extends HttpServlet{
 			handlerAdapter.setPath("WEB-INF/view/board/board_insert_view.jsp");
 			log.info("게시글 등록 화면 뷰 확인 - " + handlerAdapter);
 		}
-		
 		else if(pathURI.equals("/BoardInsert.do")) {
 			controller = new BoardInsertController();
 			handlerAdapter = controller.execute(request, response);
 			log.info("게시글 등록 확인 - " + handlerAdapter);
 		}
-		else if(pathURI.equals("/BoardDetail.do")) {
-			controller = new BoardDetailController();
+		else if(pathURI.equals("/BoardListDetail.do")) {
+			controller = new BoardListDetailController();
 			handlerAdapter = controller.execute(request, response);
 			log.info("게시글 상세 내용 확인 - " + handlerAdapter);
 		}
@@ -69,6 +71,16 @@ public class BoardDispatcherServlet extends HttpServlet{
 			controller = new BoardDeleteController();
 			handlerAdapter = controller.execute(request, response);
 			log.info("게시글 삭제 확인 - " + handlerAdapter);
+		}
+		else if(pathURI.equals("/BoardUpdateView.do")) {
+			controller = new BoardUpdateViewController();
+			handlerAdapter = controller.execute(request, response);
+			log.info("게시글 수정페이지 확인 - " + handlerAdapter);
+		}
+		else if(pathURI.equals("/BoardUpdate.do")) {
+			controller = new BoardUpdateController();
+			handlerAdapter = controller.execute(request, response);
+			log.info("게시글 수정완료 - " + handlerAdapter);
 		}
 		if(handlerAdapter != null) {
 			if(handlerAdapter.isRedirect()) {
