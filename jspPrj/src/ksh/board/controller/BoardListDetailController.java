@@ -23,7 +23,8 @@ public class BoardListDetailController implements Controller{
 		
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 		log.info("게시글 번호 확인 - " + boardNum);
-		
+		boardDAO.boardReadCountUp(boardNum);
+		log.info("조회수 증가");
 		boardDTO = boardDAO.boardSelectDetail(boardNum);
 //		log.info(boardDTO);
 		request.setAttribute("boardDTO", boardDTO);

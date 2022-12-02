@@ -16,5 +16,8 @@ public interface BoardService {
 	public int boardDelete(int boardNum);
 	// 게시판 수정
 	public int boardUpdate(BoardDTO boardDTO);
-	
+	// 게시글 개수
+	public int boardCount();
+	// 게시글 조회수
+	public void boardReadCountUp(int boardNum);
 }

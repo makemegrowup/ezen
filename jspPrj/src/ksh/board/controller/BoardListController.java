@@ -19,10 +19,13 @@ public class BoardListController implements Controller{
 	
 @Override
 	public HandlerAdapter execute(HttpServletRequest request, HttpServletResponse response) {
+		
 		BoardDAO boardDAO = new BoardDAO();
 		List<?> boardList = new ArrayList<Object>();
 		boardList = boardDAO.boardSelectAll();
+		int listCount = boardDAO.boardCount();
 		
+		request.setAttribute("listCount", listCount);
 		request.setAttribute("boardList", boardList);
 		
 		HandlerAdapter handlerAdapter = new HandlerAdapter();

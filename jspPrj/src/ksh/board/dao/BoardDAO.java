@@ -47,6 +47,21 @@ public class BoardDAO implements BoardService{
 				boardDTO.setReadCount(resultSet.getInt("READCOUNT"));
 				boardList.add(boardDTO);
 			}
+			
+//			String sql = "SELECT ROWNUM RNUM, TITLE, MEMBER_ID, TO_CHAR(BOARD_REGDATE,'YYYY-MM-DD') WRITEDAY, READCOUNT" + 
+//					" FROM(SELECT * FROM BOARD ORDER BY BOARD_REGDATE) ORDER BY RNUM DESC";
+//			preparedStatement = connection.prepareStatement(sql);
+//			resultSet = preparedStatement.executeQuery();
+//			while(resultSet.next()) {
+//				BoardDTO boardDTO = new BoardDTO();
+//				boardDTO.setBoardNum(resultSet.getInt("RNUM"));
+//				boardDTO.setTitle(resultSet.getString("TITLE"));
+//				boardDTO.setMemberId(resultSet.getString("MEMBER_ID"));
+//				boardDTO.setBoardRegdate(resultSet.getString("WRITEDAY"));
+//				boardDTO.setReadCount(resultSet.getInt("READCOUNT"));
+//				boardList.add(boardDTO);
+//			}
+			
 			return boardList;
 		} catch (Exception e) {
 			log.info("글 목록 불러오기 실패 - " + e);
@@ -222,4 +237,73 @@ public class BoardDAO implements BoardService{
 		return result;
 	}
 
+	public int boardCount() {
+		int result = 0;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			Context context = new InitialContext();
+			DataSource dataSource = (DataSource)context.lookup("java:comp/env/jdbc");
+			connection = dataSource.getConnection();
+			
+			String sql = "SELECT COUNT(*) FROM BOARD";
+			log.info("SQL 확인 - " + sql);
+			preparedStatement = connection.prepareStatement(sql);
+			resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				result = resultSet.getInt(1);
+			}
+		} catch (Exception e) {
+			log.info("게시글 수 구하기 실패 - " + e);
+		} finally {
+			try {
+				resultSet.close();
+				preparedStatement.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void boardReadCountUp(int boardNum) {
+		
+		int result = 0;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			Context context = new InitialContext();
+			DataSource dataSource = (DataSource)context.lookup("java:comp/env/jdbc");
+			connection = dataSource.getConnection();
+			
+			String sql = "UPDATE BOARD SET READCOUNT = READCOUNT+1 WHERE BOARD_NUM=" + boardNum;
+			log.info("SQL 확인 - " + sql);
+			preparedStatement = connection.prepareStatement(sql);
+			result = preparedStatement.executeUpdate();
+			log.info("result값 - " + result);
+			if(result > 0) {
+				connection.commit();
+				log.info("커밋되었습니다.");
+			} else {
+				connection.rollback();
+				log.info("롤백되었습니다.");
+			}
+		} catch (Exception e) {
+			log.info("조회수 업데이트 실패 - " + e);
+		} finally {
+			try {
+				preparedStatement.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
 }

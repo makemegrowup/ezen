@@ -49,7 +49,7 @@
 					<div class="card-header">
 						<h3>글목록</h3>
 						<p align="right">
-							전체 글 : <strong>${listcount}</strong>
+							전체 글 : <strong>${listCount}</strong>
 						</p>
 					</div>
 					<div class="card-body">
