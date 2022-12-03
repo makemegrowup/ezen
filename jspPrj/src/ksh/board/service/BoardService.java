@@ -7,7 +7,7 @@ import ksh.board.dto.BoardDTO;
 public interface BoardService {
 	
 	// 게시판 전체 리스트 조회
-	public List<BoardDTO> boardSelectAll();
+	public List<BoardDTO> boardSelectAll(int currentPage, int rowLimitSize);
 	// 게시판 조회
 	public BoardDTO boardSelectDetail(int boardNum);
 	// 게시판 글쓰기
@@ -17,7 +17,7 @@ public interface BoardService {
 	// 게시판 수정
 	public int boardUpdate(BoardDTO boardDTO);
 	// 게시글 개수
-	public int boardCount();
+	public int boardListCount();
 	// 게시글 조회수
 	public void boardReadCountUp(int boardNum);
 }

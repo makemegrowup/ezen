@@ -49,7 +49,7 @@
 					<div class="card-header">
 						<h3>글목록</h3>
 						<p align="right">
-							전체 글 : <strong>${listCount}</strong>
+							전체 글 : <strong>${boardListCount}</strong>
 						</p>
 					</div>
 					<div class="card-body">
@@ -81,6 +81,116 @@
 							</tbody>
 						</table>
 					</div>
+					
+					<!-- Pagination -->
+					
+					<nav>
+					  <ul class="pagination justify-content-center">
+					  
+					  <!-- Previous Button -->
+					  
+					  	<c:choose>
+							<c:when test="${startPage <= 1}">
+							    <li class="page-item disabled">
+							      <a class="page-link" href="#" aria-label="Previous-PageBlock">
+							        <span aria-hidden="true">&laquo;</span>
+							        <span class="sr-only">페이지 이전블럭 이동</span>
+							      </a>
+							    </li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item">
+							      <a class="page-link" href="./BoardList.do?page=${startPage-1}" aria-label="Previous-PageBlock">
+							        <span aria-hidden="true">&laquo;</span>
+							        <span class="sr-only">페이지 이전블럭 이동</span>
+							      </a>
+							    </li>
+							</c:otherwise>					  	
+					  	</c:choose>
+					  	
+					  	<c:choose>
+							<c:when test="${page <= 1}">
+							    <li class="page-item disabled">
+							      <a class="page-link" href="#" aria-label="Previous-Page">
+							        <span aria-hidden="true">&lt;</span>
+							        <span class="sr-only">이전 페이지 한칸 이동</span>
+							      </a>
+							    </li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item">
+							      <a class="page-link" href="./BoardList.do?page=${page-1}" aria-label="Previous-Page">
+							        <span aria-hidden="true">&lt;</span>
+							        <span class="sr-only">이전 페이지 한칸 이동</span>
+							      </a>
+							    </li>
+							</c:otherwise>					  	
+					  	</c:choose>
+					  	
+					  	 <!-- Previous Button -->
+					  	 
+					  	
+					  	 <!-- Page Number -->
+					  	
+					  	<c:forEach var="start" begin="${startPage}" end="${endPage}" step="1">
+					  		<c:choose>
+					  			<c:when test="${start==page}">
+					    			<li class="page-item active"><a class="page-link">${start}</a></li>					  				
+					  			</c:when>
+					  			<c:otherwise>
+					  				<li class="page-item"><a class="page-link" href="./BoardList.do?page=${start}">${start}</a></li>
+					  			</c:otherwise>
+					  		</c:choose>
+					  	</c:forEach>
+					  	
+					  	<!-- Page Number -->
+					  	
+					  	<!-- Next Button -->
+					  	
+					  	<c:choose>
+						  	<c:when test="${page == endPage}">
+							    <li class="page-item disabled">
+							      <a class="page-link" href="#" aria-label="Next">
+							        <span aria-hidden="true">&gt;</span>
+							        <span class="sr-only">다음 페이지 한칸 이동</span>
+							      </a>
+							    </li>
+						  	</c:when>
+						  	<c:otherwise>
+						  		<li class="page-item">
+							      <a class="page-link" href="./BoardList.do?page=${page+1}" aria-label="Next">
+							        <span aria-hidden="true">&gt;</span>
+							        <span class="sr-only">다음 페이지 한칸 이동</span>
+							      </a>
+							    </li>
+						  	</c:otherwise>
+					  	</c:choose>
+					  	
+					  	<c:choose>
+						  	<c:when test="${endPage >= maxPage}">
+							    <li class="page-item disabled">
+							      <a class="page-link" href="#" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							        <span class="sr-only">페이지 다음블럭 이동</span>
+							      </a>
+							    </li>
+						  	</c:when>
+						  	<c:otherwise>
+						  		<li class="page-item">
+							      <a class="page-link" href="./BoardList.do?page=${endPage+1}" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							        <span class="sr-only">페이지 다음블럭 이동</span>
+							      </a>
+							    </li>
+						  	</c:otherwise>
+					  	</c:choose>
+					  	
+					  	<!-- Next Button -->
+					  	
+					  </ul>
+					</nav>
+					
+					<!-- Pagination -->
 				</div>
 			</div>
 		</div>

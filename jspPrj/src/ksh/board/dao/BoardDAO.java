@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
@@ -22,8 +21,13 @@ public class BoardDAO implements BoardService{
 
 	private static Log log = LogFactory.getLog(BoardDAO.class);
 	
-	public List<BoardDTO> boardSelectAll() {
+	public List<BoardDTO> boardSelectAll(int currentPage, int rowLimitSize) {
+		
 		List<BoardDTO> boardList = new ArrayList<BoardDTO>();
+		
+		int startRow = (currentPage-1)*10 +1; 		// 해당 페이지 시작 행
+		int endRow = startRow+rowLimitSize-1;	// 해당 페이지 마지막 행
+		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -33,10 +37,17 @@ public class BoardDAO implements BoardService{
 			DataSource dataSource = (DataSource)context.lookup("java:comp/env/jdbc");
 			connection = dataSource.getConnection();
 			
-			String sql = "SELECT BOARD_NUM, TITLE, MEMBER_ID, TO_CHAR(BOARD_REGDATE,'YYYY-MM-DD') WRITEDAY,READCOUNT FROM " + 
-					"(SELECT * FROM BOARD ORDER BY BOARD_REGDATE DESC, BOARD_NUM DESC)";
+			String sql = "SELECT*FROM(SELECT ROWNUM RNUM ,BOARD_NUM, TITLE, MEMBER_ID, TO_CHAR(BOARD_REGDATE,'YYYY-MM-DD') WRITEDAY,READCOUNT " + 
+					"FROM (SELECT * FROM BOARD ORDER BY BOARD_REGDATE DESC, BOARD_NUM DESC)) " + 
+					"WHERE RNUM BETWEEN ? AND ?";
+//			String sql = "SELECT * FROM (SELECT ROWNUM, RNUM BOARD_NUM, TITLE, MEMBER_ID, TO_CHAR(BOARD_REGDATE,'YYYY-MM-DD') WRITEDAY,READCOUNT " + 
+//					"FROM (SELECT * FROM BOARD ORDER BY BOARD_REGDATE DESC, BOARD_NUM DESC)) ";
+//			sql += "WHERE RNUM >= ? AND RNUM <= ?";
 			log.info("SQL 확인 - " + sql);
 			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, startRow);
+			preparedStatement.setInt(2, endRow);
+			
 			resultSet = preparedStatement.executeQuery();
 			while(resultSet.next()) {
 				BoardDTO boardDTO = new BoardDTO();
@@ -237,7 +248,7 @@ public class BoardDAO implements BoardService{
 		return result;
 	}
 
-	public int boardCount() {
+	public int boardListCount() {
 		int result = 0;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
