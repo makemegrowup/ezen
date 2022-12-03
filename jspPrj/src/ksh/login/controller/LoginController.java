@@ -31,7 +31,8 @@ public class LoginController implements Controller{
 		MemberDAO memberDAO = new MemberDAO();
 		memberDTO = memberDAO.memberLogin(memberDTO);
 		log.info("로그인 내용 - " + memberDTO);
-//		request.setAttribute("memberName", memberDTO.getMemberName());
+		
+		request.setAttribute("memberName", memberDTO.getMemberName());
 		request.setAttribute("memberDTO", memberDTO);
 		if(!memberDTO.getMemberId().equals("") & !memberDTO.getMemberPwd().equals("")) {
 			HttpSession httpSession = request.getSession();

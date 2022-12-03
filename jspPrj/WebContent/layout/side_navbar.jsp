@@ -1,27 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<script src="js/jquery-3.5.1.min.js" type="text/javascript"></script>
-<script src="js/bootstrap.min.js" type="text/javascript"></script>
-<script src="https://kit.fontawesome.com/58abbffa46.js" crossorigin="anonymous"></script>
-<title>KSH-pack</title>
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
 <body>
 
-<!-- Header -->
+<!-- Side NavBar -->
 
-<%@ include file="layout/header.jsp" %>
-
-<!-- Header -->
-
-<section>
-
-	<div class="container-fluid">
+<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="row align-items-center">
@@ -66,11 +58,11 @@
 		</div>
 
 	</div>
-</section>
-<!-- Footer -->
 
-<%@ include file="layout/footer.jsp" %>
+<!-- Side NavBar -->
 
-<!-- Footer -->
+<script src="../js/jquery-3.5.1.min.js" type="text/javascript"></script>
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<script src="https://kit.fontawesome.com/58abbffa46.js" crossorigin="anonymous"></script>
 </body>
 </html>

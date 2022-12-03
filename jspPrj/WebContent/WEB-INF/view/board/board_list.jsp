@@ -18,30 +18,15 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-warning static-top">
+<!-- Header -->
 
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<a class="navbar-brand" href="index.jsp"><i class="far fa-smile-wink"></i> KSH-pack</a>
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="navbar-nav mx-auto">
-				<li class="nav-item"><a class="nav-link" href="index.jsp"><i class="fa-solid fa-house"></i>Home</a></li>
-				<c:choose>
-					<c:when test="${!empty sessionScope.memberId }">
-						<li class="nav-item active"><a class="nav-link" href="./BoardList.do">게시판<span class="sr-only">(current)</span></a></li>				
-					</c:when>
-					<c:otherwise>
-						<li class="nav-item"><a class="nav-link" href="./LoginView.me">게시판</a></li>
-					</c:otherwise>
-				</c:choose>
-				<li class="nav-item"><a class="nav-link" href="./MemberRegisterView.me">회원가입</a></li>
-				<li class="nav-item"><a class="nav-link" href="./LoginView.me">로그인</a></li>
+<%@ include file="/layout/header.jsp" %>
 
-			</ul>
-		</div>
-	</nav>
-	<!-- Board -->
+<!-- Header -->
+
+<!-- Board -->
+
+<section>
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-8">
@@ -69,9 +54,10 @@
 								</tr>
 							</thead>
 							<tbody>
-							<c:forEach var="board" items="${boardList}">
+							<c:forEach varStatus="status" var="board" items="${boardList}">
 								<tr>
-									<th>${board.boardNum}</th>
+									<%-- <th>${board.boardNum}</th> --%>
+									<th>${(boardListCount-status.index)-((page-1)*10)}</th>
 									<td><a href="./BoardListDetail.do?boardNum=${board.boardNum}">${board.title}</a></td>
 									<td>${board.memberId}</td>
 									<td>${board.boardRegdate}</td>
@@ -83,7 +69,9 @@
 					</div>
 					
 					<!-- Pagination -->
+					<c:if test="">
 					
+					</c:if>
 					<nav>
 					  <ul class="pagination justify-content-center">
 					  
@@ -132,13 +120,13 @@
 					  	
 					  	 <!-- Page Number -->
 					  	
-					  	<c:forEach var="start" begin="${startPage}" end="${endPage}" step="1">
+					  	<c:forEach var="pageNumber" begin="${startPage}" end="${endPage}" step="1">
 					  		<c:choose>
-					  			<c:when test="${start==page}">
-					    			<li class="page-item active"><a class="page-link">${start}</a></li>					  				
+					  			<c:when test="${pageNumber==page}">
+					    			<li class="page-item active"><a class="page-link">${pageNumber}</a></li>					  				
 					  			</c:when>
 					  			<c:otherwise>
-					  				<li class="page-item"><a class="page-link" href="./BoardList.do?page=${start}">${start}</a></li>
+					  				<li class="page-item"><a class="page-link" href="./BoardList.do?page=${pageNumber}">${pageNumber}</a></li>
 					  			</c:otherwise>
 					  		</c:choose>
 					  	</c:forEach>
@@ -148,7 +136,7 @@
 					  	<!-- Next Button -->
 					  	
 					  	<c:choose>
-						  	<c:when test="${page == endPage}">
+						  	<c:when test="${page >= maxPage}">
 							    <li class="page-item disabled">
 							      <a class="page-link" href="#" aria-label="Next">
 							        <span aria-hidden="true">&gt;</span>
@@ -167,7 +155,7 @@
 					  	</c:choose>
 					  	
 					  	<c:choose>
-						  	<c:when test="${endPage >= maxPage}">
+						  	<c:when test="${endPage == maxPage}">
 							    <li class="page-item disabled">
 							      <a class="page-link" href="#" aria-label="Next">
 							        <span aria-hidden="true">&raquo;</span>
@@ -196,42 +184,11 @@
 		</div>
 	</div>
 
-	<!-- Footer -->
-	<hr>
-	<footer class="page-footer font-small teal pt-2">
+</section>
+<!-- Footer -->
 
-		<!-- Footer Text -->
-		<div class="container-fluid text-center text-md-left">
+<%@ include file="/layout/footer.jsp" %>
 
-			<!-- Grid row -->
-			<div class="row">
-
-				<!-- Grid column -->
-				<div class="col-md-5 mx-auto">
-
-					<!-- Content -->
-					<h5 class="text-uppercase font-weight-bold">Enjoy Shopping</h5>
-					<p>
-						<small> business name : KSH-pack<br> 25, Sinheung-ro 258beon-gil, Uijeongbu-si, Gyeonggi-do, Republic
-							of Korea<br> business license number : 111-00-22222<br> day off : <font color="red">SAT,SUN</font><br>
-							tel : 031-0000-0000<br> CEO : SiHyeong Kim
-						</small>
-					</p>
-
-				</div>
-			</div>
-			<!-- Grid row -->
-
-		</div>
-		<!-- Footer Text -->
-
-		<!-- Copyright -->
-		<div class="footer-copyright text-center py-3">
-			© 2020 Copyright: <font color="blue"><b>KSH</b></font>
-		</div>
-		<!-- Copyright -->
-
-	</footer>
-	<!-- Footer -->
+<!-- Footer -->
 </body>
 </html>

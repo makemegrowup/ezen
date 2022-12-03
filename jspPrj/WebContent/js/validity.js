@@ -1,4 +1,6 @@
-			<!-- 유효성 검사 -->
+
+<!-- 회원가입 유효성 검사 -->
+			
 $(function() {
 	$("#join").submit(function() {
 		<!-- 이름 유효성 검사 -->
@@ -60,11 +62,7 @@ $(function() {
 			alert("성별을 선택해주세요.");
 			return false;
 		}
-		/* if(!$("#male").is(":checked") && !$("#female").is(":checked")){
-			alert("성별을 선택해 주세요.");
-			return false;
-		} */
-		
+
 		<!-- 주소 유효성검사-->
 		if(!$("#postalcode").val()) {
 			alert("주소를 입력해주세요.");
@@ -125,8 +123,10 @@ $(function() {
 	});
 });
 
-function resetEvent() {
-	if(confirm("가입을 취소하시겠습니까?")){
-		$("#join")[0].reset();
+function resetCheck() {
+	if(confirm("회원가입을 취소하시겠습니까?")){
+		location.href="index.jsp"
 	}
 }
+
+<!-- 회원가입 유효성 검사 -->

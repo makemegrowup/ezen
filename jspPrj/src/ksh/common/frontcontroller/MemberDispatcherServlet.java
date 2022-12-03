@@ -13,6 +13,7 @@ import org.apache.commons.logging.LogFactory;
 import ksh.common.control.Controller;
 import ksh.common.handler.HandlerAdapter;
 import ksh.login.controller.LoginController;
+import ksh.login.controller.LogoutController;
 import ksh.member.controller.MemberInsertController;
 import ksh.member.controller.MemberSelectAllController;
 
@@ -67,7 +68,11 @@ public class MemberDispatcherServlet extends HttpServlet{
 			handlerAdapter = controller.execute(request, response);
 			log.info("로그인 확인 - " + handlerAdapter);
 		}
-		
+		else if(pathURI.equals("/Logout.me")) {
+			controller = new LogoutController();
+			handlerAdapter = controller.execute(request, response);
+			log.info("로그아웃 확인 - " + handlerAdapter);
+		}
 		if(handlerAdapter != null) {
 			if(handlerAdapter.isRedirect()) {
 				response.sendRedirect(handlerAdapter.getPath());
