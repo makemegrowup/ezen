@@ -6,8 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
 <body>
 	<!-- Footer -->
@@ -15,7 +13,7 @@
 	<footer class="page-footer font-small teal pt-2">
 
 		<!-- Footer Text -->
-		<div class="container-fluid text-center text-md-left">
+		<div class="container-fluid text-center text-md-center">
 
 			<!-- Grid row -->
 			<div class="row">
@@ -47,8 +45,5 @@
 
 	</footer>
 	<!-- Footer -->
-<script src="../js/jquery-3.5.1.min.js" type="text/javascript"></script>
-<script src="../js/bootstrap.min.js" type="text/javascript"></script>
-<script src="https://kit.fontawesome.com/58abbffa46.js" crossorigin="anonymous"></script>
 </body>
 </html>

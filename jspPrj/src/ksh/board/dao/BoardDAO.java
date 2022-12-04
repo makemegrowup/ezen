@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
@@ -58,20 +59,6 @@ public class BoardDAO implements BoardService{
 				boardDTO.setReadCount(resultSet.getInt("READCOUNT"));
 				boardList.add(boardDTO);
 			}
-			
-//			String sql = "SELECT ROWNUM RNUM, TITLE, MEMBER_ID, TO_CHAR(BOARD_REGDATE,'YYYY-MM-DD') WRITEDAY, READCOUNT" + 
-//					" FROM(SELECT * FROM BOARD ORDER BY BOARD_REGDATE) ORDER BY RNUM DESC";
-//			preparedStatement = connection.prepareStatement(sql);
-//			resultSet = preparedStatement.executeQuery();
-//			while(resultSet.next()) {
-//				BoardDTO boardDTO = new BoardDTO();
-//				boardDTO.setBoardNum(resultSet.getInt("RNUM"));
-//				boardDTO.setTitle(resultSet.getString("TITLE"));
-//				boardDTO.setMemberId(resultSet.getString("MEMBER_ID"));
-//				boardDTO.setBoardRegdate(resultSet.getString("WRITEDAY"));
-//				boardDTO.setReadCount(resultSet.getInt("READCOUNT"));
-//				boardList.add(boardDTO);
-//			}
 			
 			return boardList;
 		} catch (Exception e) {
@@ -293,9 +280,10 @@ public class BoardDAO implements BoardService{
 			DataSource dataSource = (DataSource)context.lookup("java:comp/env/jdbc");
 			connection = dataSource.getConnection();
 			
-			String sql = "UPDATE BOARD SET READCOUNT = READCOUNT+1 WHERE BOARD_NUM=" + boardNum;
+			String sql = "UPDATE BOARD SET READCOUNT = READCOUNT+1 WHERE BOARD_NUM=?";
 			log.info("SQL 확인 - " + sql);
 			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, boardNum);
 			result = preparedStatement.executeUpdate();
 			log.info("result값 - " + result);
 			if(result > 0) {
@@ -317,4 +305,155 @@ public class BoardDAO implements BoardService{
 		}
 		
 	}
+	
+	@Override
+	public int boardSearchCount(String keyword, String keyfield) {
+		log.info("검색 영역 확인 - " + keyfield);
+		log.info("검색 단어 확인 - " + keyword);
+		String searchCall = "";
+		if(!keyword.equals("")) {
+			if(keyfield.equals("all")) {
+				searchCall = "TITLE LIKE '%" + keyword +"%' OR MEMBER_ID LIKE '%" + keyword +"%' OR CONTENT LIKE '%" + keyword +"%'";
+			} else if(keyfield.equals("title")) {
+				searchCall = "TITLE LIKE '%" + keyword +"%'";
+			} else if(keyfield.equals("memberId")) {
+				searchCall = "MEMBER_ID LIKE '%" + keyword +"%'";
+			} else if(keyfield.equals("content")) {
+				searchCall = "CONTENT LIKE '%\" + keyword +\"%'";
+			}
+		}
+		log.info("검색 - " + searchCall);
+		
+		int count = 0;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			Context context = new InitialContext();
+			DataSource dataSource = (DataSource)context.lookup("java:comp/env/jdbc");
+			connection = dataSource.getConnection();
+			String sql = "SELECT COUNT(*) FROM (SELECT BOARD_NUM, TITLE, CONTENT, MEMBER_ID, TO_CHAR(BOARD_REGDATE,'YYYY-MM-DD') WRITEDAY,READCOUNT " 
+					+ "FROM (SELECT*FROM BOARD ORDER BY BOARD_REGDATE DESC, BOARD_NUM DESC)) "
+					+ "WHERE ";
+			sql += searchCall;
+			log.info("SQL 확인 - " + sql);
+			preparedStatement = connection.prepareStatement(sql);
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				count = resultSet.getInt(1);
+			}
+		} catch (Exception e) {
+			log.info("검색 실패 - " + e);
+		} finally {
+			try {
+				resultSet.close();
+				preparedStatement.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return count;
+	}
+
+	@Override
+	public List<?> boardSearch(String keyword, String keyfield, int currentPage, int rowLimitSize) {
+		log.info("검색 영역 확인 - " + keyfield);
+		log.info("검색 단어 확인 - " + keyword);
+		String searchCall = "";
+		if(!keyword.equals("")) {
+			if(keyfield.equals("all")) {
+				searchCall = "(TITLE LIKE '%" + keyword +"%') OR (MEMBER_ID LIKE '%" + keyword +"%') OR (CONTENT LIKE '%" + keyword +"%')";
+			} else if(keyfield.equals("title")) {
+				searchCall = "TITLE LIKE '%" + keyword +"%'";
+			} else if(keyfield.equals("memberId")) {
+				searchCall = "MEMBER_ID LIKE '%" + keyword +"%'";
+			} else if(keyfield.equals("content")) {
+				searchCall = "CONTENT LIKE '%" + keyword + "%'";
+			}
+		} 
+		List<BoardDTO> searchList = new ArrayList<BoardDTO>();
+		int startRow = (currentPage-1)*10+1;
+		int endRow = startRow+rowLimitSize-1;
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			Context context = new InitialContext();
+			DataSource dataSource = (DataSource)context.lookup("java:comp/env/jdbc");
+			connection = dataSource.getConnection();
+			
+			String sql = "SELECT * FROM(SELECT ROWNUM RNUM, BOARD_NUM, TITLE, CONTENT, MEMBER_ID, TO_CHAR(BOARD_REGDATE,'YYYY-MM-DD') WRITEDAY,READCOUNT " + 
+					"FROM (SELECT*FROM BOARD ORDER BY BOARD_REGDATE DESC, BOARD_NUM DESC) ";
+			sql += "WHERE " + searchCall + ") WHERE RNUM BETWEEN ? AND ?";
+			log.info("SQL 확인 - " + sql);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, startRow);
+			preparedStatement.setInt(2, endRow);
+			resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				BoardDTO boardDTO = new BoardDTO();
+				boardDTO.setBoardNum(resultSet.getInt("BOARD_NUM"));
+				boardDTO.setTitle(resultSet.getString("TITLE"));
+				boardDTO.setMemberId(resultSet.getString("MEMBER_ID"));
+				boardDTO.setBoardRegdate(resultSet.getString("WRITEDAY"));
+				boardDTO.setReadCount(resultSet.getInt("READCOUNT"));
+				searchList.add(boardDTO);
+			}
+			return searchList;
+		} catch (Exception e) {
+			log.info("검색 실패 - " + e);
+		} finally {
+			try {
+				resultSet.close();
+				preparedStatement.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+//	public boolean boardDeleteCheck(String memberId) {
+//		
+//		Connection connection = null;
+//		PreparedStatement preparedStatement = null;
+//		ResultSet resultSet = null;
+//		
+//		try {
+//			Context context = new InitialContext();
+//			DataSource dataSource = (DataSource)context.lookup("java:comp/env/jdbc");
+//			connection = dataSource.getConnection();
+//			
+//			String sql = "SELECT * FROM MEMBER_INFO WHERE MEMBER_ID=?";
+//			log.info("SQL 확인 - " + sql);
+//			preparedStatement = connection.prepareStatement(sql);
+//			preparedStatement.setString(1, memberId);
+//			resultSet = preparedStatement.executeQuery();
+//			if(resultSet.next()) {
+//				if(memberId.equals(resultSet.getString("MEMBER_ID"))) {
+//					return true;					
+//				}
+//			}
+//		} catch (Exception e) {
+//			log.info("작성자 확인 실패 - " + e);
+//		} finally {
+//			try {
+//				resultSet.close();
+//				preparedStatement.close();
+//				connection.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		
+//		return false;
+//	}
 }

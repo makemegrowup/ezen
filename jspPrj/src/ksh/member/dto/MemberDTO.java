@@ -43,6 +43,9 @@ public class MemberDTO {
 	    // 가입일 
 	    private String memberRegdate;
 	    
+	    // 우편번호+주소
+	    private String memberAddress;
+	    
 	    public String getMemberId() {
 	        return memberId;
 	    }
@@ -146,6 +149,14 @@ public class MemberDTO {
 	    public void setMemberRegdate(String memberRegdate) {
 	        this.memberRegdate = memberRegdate;
 	    }
+	    
+	    public void setMemberAddress(String postalcode, String address, String addressDetail, String addressExtra) {
+	    	this.memberAddress = "(" + postalcode + ") " + address + " " + addressDetail + addressExtra; 
+	    }
+	    
+	    public String getMemberAddress() {
+	    	return this.memberAddress;
+	    }
 
 		@Override
 		public String toString() {
@@ -153,11 +164,9 @@ public class MemberDTO {
 					+ ", birth=" + birth + ", postalcode=" + postalcode + ", address=" + address + ", addressDetail="
 					+ addressDetail + ", addressExtra=" + addressExtra + ", cellphone=" + cellphone + ", email=" + email
 					+ ", subCellphone=" + subCellphone + ", companyNumber=" + companyNumber + ", memberRegdate="
-					+ memberRegdate + "]";
+					+ memberRegdate + ", memberAddress=" + memberAddress + "]";
 		}
-
-
-		
-
+	    
+	    
 	    
 }

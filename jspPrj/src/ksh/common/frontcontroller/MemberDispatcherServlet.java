@@ -14,6 +14,8 @@ import ksh.common.control.Controller;
 import ksh.common.handler.HandlerAdapter;
 import ksh.login.controller.LoginController;
 import ksh.login.controller.LogoutController;
+import ksh.member.controller.MemberListDetailController;
+import ksh.member.controller.MemberDeleteController;
 import ksh.member.controller.MemberInsertController;
 import ksh.member.controller.MemberSelectAllController;
 
@@ -72,6 +74,16 @@ public class MemberDispatcherServlet extends HttpServlet{
 			controller = new LogoutController();
 			handlerAdapter = controller.execute(request, response);
 			log.info("로그아웃 확인 - " + handlerAdapter);
+		}
+		else if(pathURI.equals("/MemberListDetail.me")) {
+			controller = new MemberListDetailController();
+			handlerAdapter = controller.execute(request, response);
+			log.info("회원 개별 조회 확인 - " + handlerAdapter);
+		}
+		else if(pathURI.equals("/MemberDelete.me")) {
+			controller = new MemberDeleteController();
+			handlerAdapter = controller.execute(request, response);
+			log.info("회원 삭제 확인 - " + handlerAdapter);
 		}
 		if(handlerAdapter != null) {
 			if(handlerAdapter.isRedirect()) {

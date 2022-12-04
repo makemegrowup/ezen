@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 
 import ksh.board.controller.BoardDeleteController;
 import ksh.board.controller.BoardListDetailController;
+import ksh.board.controller.BoardSearchController;
 import ksh.board.controller.BoardInsertController;
 import ksh.board.controller.BoardListController;
 import ksh.board.controller.BoardUpdateController;
@@ -81,6 +82,11 @@ public class BoardDispatcherServlet extends HttpServlet{
 			controller = new BoardUpdateController();
 			handlerAdapter = controller.execute(request, response);
 			log.info("게시글 수정완료 - " + handlerAdapter);
+		}
+		else if(pathURI.equals("/BoardSearch.do")) {
+			controller = new BoardSearchController();
+			handlerAdapter = controller.execute(request, response);
+			log.info("검색 확인 - " + handlerAdapter);
 		}
 		if(handlerAdapter != null) {
 			if(handlerAdapter.isRedirect()) {

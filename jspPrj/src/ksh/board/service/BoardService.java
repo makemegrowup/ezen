@@ -20,4 +20,8 @@ public interface BoardService {
 	public int boardListCount();
 	// 게시글 조회수
 	public void boardReadCountUp(int boardNum);
+	// 검색 게시글 개수
+	public int boardSearchCount(String keyword, String keyfield);
+	// 검색 실행
+	public List<?> boardSearch(String keyword, String keyfield, int currentPage, int rowLimitSize);
 }

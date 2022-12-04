@@ -7,9 +7,9 @@
 <title>KSH-pack 로그인</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.1.min.js" type="text/javascript"></script>
-<script src="https://kit.fontawesome.com/58abbffa46.js" crossorigin="anonymous"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<script src="https://kit.fontawesome.com/58abbffa46.js"></script>
 </head>
 <body>
 <!-- Header -->

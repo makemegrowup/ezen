@@ -1,9 +1,8 @@
-
-<!-- 회원가입 유효성 검사 -->
+/* 회원가입 유효성 검사 */
 			
 $(function() {
 	$("#join").submit(function() {
-		<!-- 이름 유효성 검사 -->
+		/* 이름 유효성 검사 */
 		if(!$("input[name='memberName']").val()) {
 			alert("이름을 입력하세요.");
 			$("input[name='memberName']").focus();
@@ -17,7 +16,7 @@ $(function() {
 			$("input[name='memberName']").focus();
 			return false;
 		}
-		<!-- ID 유효성 검사 -->
+		/* ID 유효성 검사 */
 		if(!$("input[name='memberId']").val()){
 			alert("아이디를 입력하세요.");
 			$("input[name='memberId']").focus();
@@ -32,7 +31,7 @@ $(function() {
 			$("input[name='memberId']").focus();
 			return false;
 		}
-		<!-- 비밀번호 유효성 검사 -->
+		/* 비밀번호 유효성 검사 */
 		if (!$("input[name='memberPwd']").val()) {
 			alert("비밀번호를 입력하세요.");
 			$("input[name='memberPwd']").focus();
@@ -45,31 +44,31 @@ $(function() {
 			$("input[name='memberPwd']").focus();
 			return false;
 		}
-		<!-- 비밀번호 일치 검사 -->
+		/* 비밀번호 일치 검사 */
 		if($("input[name='memberPwd']").val() != $("input[name='memberPwdConfirm']").val()) {
 			alert("비밀번호가 일치하지 않습니다.");
 			$("input[name='memberPwdConfirm']").focus();
 			return false;
 		}
-		<!-- 생년월일 유효성 검사 -->
+		/* 생년월일 유효성 검사 */
 		if(!$("input[name='birth']").val()) {
 			alert("생년월일을 입력해주세요.");
 			$("input[name='birth']").focus();
 			return false;
 		}
-		<!-- 성별 유효성 검사 -->
+		/* 성별 유효성 검사 */
 		if($(":radio[name='gender']:checked").length < 1) {
 			alert("성별을 선택해주세요.");
 			return false;
 		}
 
-		<!-- 주소 유효성검사-->
+		/* 주소 유효성검사 */
 		if(!$("#postalcode").val()) {
 			alert("주소를 입력해주세요.");
 			return false;
 		}
 		
-		<!-- 휴대폰 번호 유효성 검사 -->
+		/* 휴대폰 번호 유효성 검사 */
 		if(!$("input[name='cellphone']").val()) {
 			alert("휴대폰 번호를 입력하세요.");
 			$("input[name='cellphone']").focus();
@@ -83,7 +82,7 @@ $(function() {
 			$("input[name='cellphone']").focus();
 			return false;
 		}
-		<!-- 이메일 유효성 검사 -->
+		/* 이메일 유효성 검사 */
 		if(!$("input[name='email']").val()){
 			alert("이메일을 입력하세요.");
 			$("input[name='email']").focus();
@@ -97,7 +96,7 @@ $(function() {
 			$("input[name='email']").focus();
 			return false;
 		}
-		<!-- 연락처 유효성 검사(선택-입력시) -->
+		/* 연락처 유효성 검사(선택-입력시) */
 		if($("input[name='subCellphone']").val()){
 			var regexp_phoneNum2 = /^[0-9]{10,11}$/;
 			var phoneNum2_check2 = $("input[name='subCellphone']").val();
@@ -108,7 +107,7 @@ $(function() {
 				return false;
 			}
 		}
-		<!-- 회사전화 유효성 검사(선택-입력시) -->
+		/* 회사전화 유효성 검사(선택-입력시) */
 		if($("input[name='companyNum']").val()){
 			var regexp_companyNum = /^[0-9]{8,11}$/;
 			var companyNum_check2 = $("input[name='companyNum']").val();
@@ -122,11 +121,9 @@ $(function() {
 		
 	});
 });
-
+/* 회원가입 폼 취소버튼 이벤트 */
 function resetCheck() {
 	if(confirm("회원가입을 취소하시겠습니까?")){
 		location.href="index.jsp"
 	}
 }
-
-<!-- 회원가입 유효성 검사 -->

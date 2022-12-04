@@ -126,8 +126,53 @@ public class MemberDAO implements MemberService{
 	
 	@Override
 	public MemberDTO memberSelectDetail(String memberId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		MemberDTO memberDTO = new MemberDTO();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			Context context = new InitialContext();
+			DataSource dataSource = (DataSource)context.lookup("java:comp/env/jdbc");
+			connection = dataSource.getConnection();
+			
+			String sql = "SELECT MEMBER_ID,MEMBER_NAME,TO_CHAR(BIRTH,'YYYY-MM-DD') BIRTH,POSTALCODE,ADDRESS,ADDRESS_DETAIL,ADDRESS_EXTRA,CELLPHONE,EMAIL,"
+					+ "SUBCELLPHONE,COMPANY_NUMBER,TO_CHAR(MEMBER_REGDATE,'YYYY-MM-DD') MEMBER_REGDATE "
+					+ "FROM MEMBER_INFO WHERE MEMBER_ID=?";
+			log.info("SQL 확인 - " + sql);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, memberId);
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				memberDTO.setMemberId(resultSet.getString("MEMBER_ID"));
+				memberDTO.setMemberName(resultSet.getString("MEMBER_NAME"));
+				memberDTO.setBirth(resultSet.getString("BIRTH"));
+				memberDTO.setPostalcode(resultSet.getString("POSTALCODE"));
+				memberDTO.setAddress(resultSet.getString("ADDRESS"));
+				memberDTO.setAddressDetail(resultSet.getString("ADDRESS_DETAIL"));
+				memberDTO.setAddressExtra(resultSet.getString("ADDRESS_EXTRA"));
+				memberDTO.setCellphone(resultSet.getString("CELLPHONE"));
+				memberDTO.setEmail(resultSet.getString("EMAIL"));
+				memberDTO.setSubCellphone(resultSet.getString("SUBCELLPHONE"));
+				memberDTO.setCompanyNumber(resultSet.getString("COMPANY_NUMBER"));
+				memberDTO.setMemberRegdate(resultSet.getString("MEMBER_REGDATE"));
+				memberDTO.setMemberAddress(resultSet.getString("POSTALCODE"), resultSet.getString("ADDRESS"), resultSet.getString("ADDRESS_DETAIL"), resultSet.getString("ADDRESS_EXTRA"));
+			}
+		} catch (Exception e) {
+			log.info("회원 상세조회 실패 - " + e);
+		} finally {
+			try {
+				resultSet.close();
+				preparedStatement.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return memberDTO;
 	}
 	
 	@Override
@@ -138,7 +183,40 @@ public class MemberDAO implements MemberService{
 	
 	@Override
 	public int memberDelete(String memberId) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int result = 0;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+			Context context = new InitialContext();
+			DataSource dataSource = (DataSource)context.lookup("java:comp/env/jdbc");
+			connection = dataSource.getConnection();
+			
+			String sql = "DELETE FROM MEMBER_INFO WHERE MEMBER_ID=?";
+			log.info("SQL 확인 - " + sql);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, memberId);
+			result = preparedStatement.executeUpdate();
+			
+			if(result > 0) {
+				connection.commit();
+				log.info("커밋되었습니다.");
+			} else {
+				connection.rollback();
+				log.info("롤백되었습니다.");
+			}
+		} catch (Exception e) {
+			log.info("회원 삭제 실패 - " + e);
+		} finally {
+			try {
+				preparedStatement.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
 	}
 }

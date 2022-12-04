@@ -5,12 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>KSH-pack 회원가입</title>
-<link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap.min.css">
 <script src="js/jquery-3.5.1.min.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
 <script src="js/kakao-addressAPI.js" type="text/javascript"></script>
-<script src="https://kit.fontawesome.com/58abbffa46.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/58abbffa46.js"></script>
 <script src="js/validity.js"></script>
 </head>
 <body>

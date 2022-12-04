@@ -11,26 +11,24 @@ import ksh.common.handler.HandlerAdapter;
 import ksh.member.dao.MemberDAO;
 import ksh.member.dto.MemberDTO;
 
-public class MemberDeleteController implements Controller{
+public class MemberListDetailController implements Controller {
 
-	private static Log log = LogFactory.getLog(MemberDeleteController.class);
+	private static Log log = LogFactory.getLog(MemberListDetailController.class);
 	
 	@Override
 	public HandlerAdapter execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		String memberId = request.getParameter("memberId");
-		log.info(memberId);
-		MemberDTO memberDTO= new MemberDTO();
+		log.info("파라미터 memberId 확인 - " + memberId);
+		MemberDTO memberDTO = new MemberDTO();
 		MemberDAO memberDAO = new MemberDAO();
 		
 		memberDTO = memberDAO.memberSelectDetail(memberId);
-		log.info("회원 정보 - " + memberDTO);
-		int result = memberDAO.memberDelete(memberId);
-		log.info("DB반영(회원삭제) 개수 - " + result);
-		
+		log.info("memberDTO 확인 - " + memberDTO);
 		request.setAttribute("memberDTO", memberDTO);
 		HandlerAdapter handlerAdapter = new HandlerAdapter();
-		handlerAdapter.setPath("/WEB-INF/view/member/member_delete_result.jsp");
+		handlerAdapter.setPath("/WEB-INF/view/member/member_detail_view.jsp");
 		return handlerAdapter;
 	}
+
 }
