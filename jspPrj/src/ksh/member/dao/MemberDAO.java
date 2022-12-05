@@ -176,9 +176,53 @@ public class MemberDAO implements MemberService{
 	}
 	
 	@Override
-	public int memberUpdate(String memberId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int memberUpdate(MemberDTO memberDTO) {
+		
+		int result = 0;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			Context context = new InitialContext();
+			DataSource dataSource = (DataSource)context.lookup("java:comp/env/jdbc");
+			connection = dataSource.getConnection();
+			
+			String sql = "UPDATE MEMBER_INFO SET MEMBER_NAME=?, BIRTH = TO_DATE(?,'YYYY-MM-DD'), POSTALCODE=?, ADDRESS=?, ADDRESS_DETAIL=?, ";
+			sql += "ADDRESS_EXTRA=?, CELLPHONE=?, EMAIL=?, SUBCELLPHONE=?, COMPANY_NUMBER=? ";
+			sql += "WHERE MEMBER_ID=?";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, memberDTO.getMemberName());
+			preparedStatement.setString(2, memberDTO.getBirth());
+			preparedStatement.setString(3, memberDTO.getPostalcode());
+			preparedStatement.setString(4, memberDTO.getAddress());
+			preparedStatement.setString(5, memberDTO.getAddressDetail());
+			preparedStatement.setString(6, memberDTO.getAddressExtra());
+			preparedStatement.setString(7, memberDTO.getCellphone());
+			preparedStatement.setString(8, memberDTO.getEmail());
+			preparedStatement.setString(9, memberDTO.getSubCellphone());
+			preparedStatement.setString(10, memberDTO.getCompanyNumber());
+			preparedStatement.setString(11, memberDTO.getMemberId());
+			
+			result = preparedStatement.executeUpdate();
+			log.info("업데이트 실행 결과 - " + result);
+			if(result == 1) {
+				connection.commit();
+				log.info("커밋되었습니다.");
+			} else {
+				connection.rollback();
+				log.info("롤백되었습니다.");
+			}
+		} catch (Exception e) {
+			log.info("업데이트 실패 - " + e);
+		} finally {
+			try {
+				preparedStatement.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
 	}
 	
 	@Override
@@ -217,6 +261,42 @@ public class MemberDAO implements MemberService{
 			}
 		}
 		
+		return result;
+	}
+	
+	@Override
+	public int memberIdCheck(String memberId) {
+		int result = 0;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			Context context = new InitialContext();
+			DataSource dataSource = (DataSource)context.lookup("java:comp/env/jdbc");
+			connection = dataSource.getConnection();
+			String sql = "SELECT * FROM MEMBER_INFO WHERE MEMBER_ID=?";
+			log.info("SQL - " + sql);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, memberId);
+			resultSet = preparedStatement.executeQuery();
+			if(resultSet.next() || memberId.equals("")) {
+				result = 1;		// 존재하는 경우
+			} else {
+				result = 0;		// 존재하지 않는 경우
+			}
+			
+		} catch (Exception e) {
+			log.info("회원 아이디 체크 실패 - " + e);
+		} finally {
+			try {
+				resultSet.close();
+				preparedStatement.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		return result;
 	}
 }

@@ -121,6 +121,7 @@ $(function() {
 		
 	});
 });
+
 /* 회원가입 폼 취소버튼 이벤트 */
 function resetCheck() {
 	if(confirm("회원가입을 취소하시겠습니까?")){

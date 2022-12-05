@@ -26,11 +26,6 @@ public class BoardSearchController implements Controller {
 		log.info("keyfield,keyword 확인 - " + keyfield + " " + keyword);
 		HandlerAdapter handlerAdapter = new HandlerAdapter();
 		
-//		if(keyword.equals("") & keyword.equals(null)) {
-//			handlerAdapter.setPath("/WEB-INF/view/board/board_keyword_fail.jsp");
-//			return handlerAdapter;
-//		}
-		
 		HttpSession session = request.getSession();
 		session.setAttribute("keyfield", keyfield);
 		session.setAttribute("keyword", keyword);
@@ -68,6 +63,7 @@ public class BoardSearchController implements Controller {
 		
 		handlerAdapter.setPath("WEB-INF/view/board/board_search_view.jsp");
 		return handlerAdapter;
-	}
+		}
+	
 
 }

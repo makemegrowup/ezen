@@ -25,6 +25,12 @@ public class MemberListDetailController implements Controller {
 		
 		memberDTO = memberDAO.memberSelectDetail(memberId);
 		log.info("memberDTO 확인 - " + memberDTO);
+		String removeNull = memberDTO.getMemberAddress();
+		if(removeNull.contains("null")) {
+			removeNull = removeNull.replaceAll("null", "");
+			memberDTO.setMemberAddress(removeNull);
+		}
+//		System.out.println(memberDTO.getMemberAddress());
 		request.setAttribute("memberDTO", memberDTO);
 		HandlerAdapter handlerAdapter = new HandlerAdapter();
 		handlerAdapter.setPath("/WEB-INF/view/member/member_detail_view.jsp");

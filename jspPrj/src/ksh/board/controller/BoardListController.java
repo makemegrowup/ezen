@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import ksh.board.dao.BoardDAO;
 import ksh.common.control.Controller;
 import ksh.common.handler.HandlerAdapter;
-
+ 
 public class BoardListController implements Controller{
 
 	private static Log log = LogFactory.getLog(BoardListController.class);

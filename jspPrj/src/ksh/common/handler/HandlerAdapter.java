@@ -1,5 +1,5 @@
 package ksh.common.handler;
-
+ 
 public class HandlerAdapter {
 
 	private boolean redirect = false;

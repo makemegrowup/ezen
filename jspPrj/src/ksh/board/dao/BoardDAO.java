@@ -313,13 +313,13 @@ public class BoardDAO implements BoardService{
 		String searchCall = "";
 		if(!keyword.equals("")) {
 			if(keyfield.equals("all")) {
-				searchCall = "TITLE LIKE '%" + keyword +"%' OR MEMBER_ID LIKE '%" + keyword +"%' OR CONTENT LIKE '%" + keyword +"%'";
+				searchCall = "WHERE TITLE LIKE '%" + keyword +"%' OR MEMBER_ID LIKE '%" + keyword +"%' OR CONTENT LIKE '%" + keyword +"%'";
 			} else if(keyfield.equals("title")) {
-				searchCall = "TITLE LIKE '%" + keyword +"%'";
+				searchCall = "WHERE TITLE LIKE '%" + keyword +"%'";
 			} else if(keyfield.equals("memberId")) {
-				searchCall = "MEMBER_ID LIKE '%" + keyword +"%'";
+				searchCall = "WHERE MEMBER_ID LIKE '%" + keyword +"%'";
 			} else if(keyfield.equals("content")) {
-				searchCall = "CONTENT LIKE '%\" + keyword +\"%'";
+				searchCall = "WHERE CONTENT LIKE '%" + keyword +"%'";
 			}
 		}
 		log.info("검색 - " + searchCall);
@@ -334,8 +334,8 @@ public class BoardDAO implements BoardService{
 			DataSource dataSource = (DataSource)context.lookup("java:comp/env/jdbc");
 			connection = dataSource.getConnection();
 			String sql = "SELECT COUNT(*) FROM (SELECT BOARD_NUM, TITLE, CONTENT, MEMBER_ID, TO_CHAR(BOARD_REGDATE,'YYYY-MM-DD') WRITEDAY,READCOUNT " 
-					+ "FROM (SELECT*FROM BOARD ORDER BY BOARD_REGDATE DESC, BOARD_NUM DESC)) "
-					+ "WHERE ";
+					+ "FROM (SELECT*FROM BOARD ORDER BY BOARD_REGDATE DESC, BOARD_NUM DESC)) ";
+					
 			sql += searchCall;
 			log.info("SQL 확인 - " + sql);
 			preparedStatement = connection.prepareStatement(sql);
@@ -366,13 +366,13 @@ public class BoardDAO implements BoardService{
 		String searchCall = "";
 		if(!keyword.equals("")) {
 			if(keyfield.equals("all")) {
-				searchCall = "(TITLE LIKE '%" + keyword +"%') OR (MEMBER_ID LIKE '%" + keyword +"%') OR (CONTENT LIKE '%" + keyword +"%')";
+				searchCall = "WHERE TITLE LIKE '%" + keyword +"%' OR MEMBER_ID LIKE '%" + keyword +"%' OR CONTENT LIKE '%" + keyword +"%'";
 			} else if(keyfield.equals("title")) {
-				searchCall = "TITLE LIKE '%" + keyword +"%'";
+				searchCall = "WHERE TITLE LIKE '%" + keyword +"%'";
 			} else if(keyfield.equals("memberId")) {
-				searchCall = "MEMBER_ID LIKE '%" + keyword +"%'";
+				searchCall = "WHERE MEMBER_ID LIKE '%" + keyword +"%'";
 			} else if(keyfield.equals("content")) {
-				searchCall = "CONTENT LIKE '%" + keyword + "%'";
+				searchCall = "WHERE CONTENT LIKE '%" + keyword + "%'";
 			}
 		} 
 		List<BoardDTO> searchList = new ArrayList<BoardDTO>();
@@ -390,7 +390,7 @@ public class BoardDAO implements BoardService{
 			
 			String sql = "SELECT * FROM(SELECT ROWNUM RNUM, BOARD_NUM, TITLE, CONTENT, MEMBER_ID, TO_CHAR(BOARD_REGDATE,'YYYY-MM-DD') WRITEDAY,READCOUNT " + 
 					"FROM (SELECT*FROM BOARD ORDER BY BOARD_REGDATE DESC, BOARD_NUM DESC) ";
-			sql += "WHERE " + searchCall + ") WHERE RNUM BETWEEN ? AND ?";
+			sql += searchCall + ") WHERE RNUM BETWEEN ? AND ?";
 			log.info("SQL 확인 - " + sql);
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, startRow);

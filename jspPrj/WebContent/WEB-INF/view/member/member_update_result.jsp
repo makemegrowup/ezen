@@ -4,12 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>KSH-pack 검색 실패</title>
+<title>회원 정보 수정</title>
 </head>
 <body>
 <script type="text/javascript">
-	alert("검색어를 입력하세요.");
-	history.back();
+		alert("${memberDTO.memberId}님의 회원 정보가 수정되었습니다.");
+		location.href="./MemberListDetail.me?memberId=${memberDTO.memberId}";
 </script>
+
 </body>
 </html>

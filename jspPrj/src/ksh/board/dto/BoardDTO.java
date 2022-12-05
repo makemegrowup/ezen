@@ -1,7 +1,7 @@
 package ksh.board.dto;
 
 public class BoardDTO {
-
+ 
 	    // 게시글번호 
 	    private int boardNum;
 

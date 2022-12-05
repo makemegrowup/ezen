@@ -154,6 +154,10 @@ public class MemberDTO {
 	    	this.memberAddress = "(" + postalcode + ") " + address + " " + addressDetail + addressExtra; 
 	    }
 	    
+	    public void setMemberAddress(String removeNull) {
+	    	this.memberAddress = removeNull;
+	    }
+	    
 	    public String getMemberAddress() {
 	    	return this.memberAddress;
 	    }

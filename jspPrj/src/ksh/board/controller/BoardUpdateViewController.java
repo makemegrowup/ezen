@@ -11,7 +11,7 @@ import ksh.board.dao.BoardDAO;
 import ksh.board.dto.BoardDTO;
 import ksh.common.control.Controller;
 import ksh.common.handler.HandlerAdapter;
-
+ 
 public class BoardUpdateViewController implements Controller{
 
 	private static Log log = LogFactory.getLog(BoardUpdateViewController.class);

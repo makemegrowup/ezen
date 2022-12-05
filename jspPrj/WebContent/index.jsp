@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:if test="${empty sessionScope.memberId}">
-<script type="text/javascript">
-location.href="./LoginView.me"
-</script>
-</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,44 +27,42 @@ location.href="./LoginView.me"
 				<div class="row align-items-center">
 					<div class="col-md-2">
 						<ul class="nav flex-column">
-							<li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
-							<li class="nav-item"><a class="nav-link disabled" href="#">Messages</a></li>
-							<li class="nav-item"><a class="nav-link disabled" href="#">Messages</a></li>
-							<li class="nav-item"><a class="nav-link disabled" href="#">Messages</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">아우터</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">상의</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">하의</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">악세사리</a></li>
 
 						</ul>
 					</div>
 					<div class="col-md-10">
 						<div class="jumbotron">
-							<h2>Hello, world!</h2>
-							<p>This is a template for a simple marketing or informational website. It includes a large callout called the
-								hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-							<p>
+							<h2>KSH-pack에 오신걸 환영합니다.</h2>
+							<p>서비스 준비중...</p>
+<!-- 							<p>
 								<a class="btn btn-primary btn-large" href="#">Learn more</a>
-							</p>
+							</p> -->
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<a><img alt="" src="img/cloth.png"></a>
-						</div>
-						<div class="col-md-4">
-							<a><img alt="" src="img/cloth.png"></a>
-						</div>
-						<div class="col-md-4">
-							<a><img alt="" src="img/cloth.png"></a>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4"></div>
-						<div class="col-md-4"></div>
-						<div class="col-md-4"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 
+					<div class="row">
+						<div class="col-md-4">
+							<a><img alt="" src="img/cloth.png"></a>
+						</div>
+						<div class="col-md-4">
+							<a><img alt="" src="img/cloth.png"></a>
+						</div>
+						<div class="col-md-4">
+							<a><img alt="" src="img/cloth.png"></a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4"></div>
+						<div class="col-md-4"></div>
+						<div class="col-md-4"></div>
+					</div>
 	</div>
 </section>
 <!-- Footer -->

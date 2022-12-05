@@ -35,7 +35,7 @@
 		        <h2 class="text-center mt-4 mb-4"><strong>게시글 수정</strong></h2>
 		    	</div>
 			    	<div class="card-body">
-				        <form action="./BoardUpdate.do" method="post" name="boardInsertForm">
+				        <form action="./BoardUpdate.do" method="post" name="boardForm">
 				          <table class="table table-striped">
 				            <tr>
 				                <th>게시글 번호</th>

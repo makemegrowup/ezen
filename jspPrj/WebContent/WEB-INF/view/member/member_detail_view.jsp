@@ -39,7 +39,7 @@
 					<h2 class="text-center mt-4 mb-4">회원정보</h2>
 				</div>
 				<div class="card-body">
-					<table class="table">
+					<table class="table text-center">
 						<tr>
 							<th>회원 ID</th>
 							<td>${memberDTO.memberId}</td>
@@ -59,15 +59,19 @@
 						<tr>
 							<th>휴대폰</th>
 							<td>${memberDTO.cellphone}</td>
+						</tr>
+						<tr>
 							<th>이메일</th>
 							<td>${memberDTO.email}</td>
-						</tr>
+						</tr>	
 						<tr>
 							<th>휴대폰2</th>
 							<td>${memberDTO.subCellphone}</td>
+						</tr>
+						<tr>
 							<th>회사번호</th>
 							<td>${memberDTO.companyNumber}</td>
-						</tr>
+						</tr>	
 						<tr>
 							<th>가입일</th>
 							<td>${memberDTO.memberRegdate}</td>

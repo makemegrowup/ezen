@@ -44,6 +44,8 @@
 		<!-- Copyright -->
 
 	</footer>
+	
 	<!-- Footer -->
+	
 </body>
 </html>

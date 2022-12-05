@@ -12,12 +12,14 @@ import org.apache.commons.logging.LogFactory;
 
 import ksh.common.control.Controller;
 import ksh.common.handler.HandlerAdapter;
+import ksh.login.controller.IdCheckController;
 import ksh.login.controller.LoginController;
 import ksh.login.controller.LogoutController;
-import ksh.member.controller.MemberListDetailController;
 import ksh.member.controller.MemberDeleteController;
 import ksh.member.controller.MemberInsertController;
-import ksh.member.controller.MemberSelectAllController;
+import ksh.member.controller.MemberListDetailController;
+import ksh.member.controller.MemberUpdateController;
+import ksh.member.controller.MemberUpdateViewController;
 
 
 public class MemberDispatcherServlet extends HttpServlet{
@@ -43,8 +45,8 @@ public class MemberDispatcherServlet extends HttpServlet{
 		HandlerAdapter handlerAdapter = null;
 		Controller controller = null;
 		
-		if(pathURI.equals("/MemberSelectAll.me")) {
-			controller = new MemberSelectAllController();
+		if(pathURI.equals("/MemberUpdate.me")) {
+			controller = new MemberUpdateController();
 			handlerAdapter = controller.execute(request, response);
 			log.info("회원 전체 조회 확인 - " + handlerAdapter);
 		}
@@ -84,6 +86,16 @@ public class MemberDispatcherServlet extends HttpServlet{
 			controller = new MemberDeleteController();
 			handlerAdapter = controller.execute(request, response);
 			log.info("회원 삭제 확인 - " + handlerAdapter);
+		}
+		else if(pathURI.equals("/IdCheck.me")) {
+			controller = new IdCheckController();
+			handlerAdapter = controller.execute(request, response);
+			log.info("아이디 중복 확인 - " + handlerAdapter);
+		}
+		else if(pathURI.equals("/MemberUpdateView.me")) {
+			controller = new MemberUpdateViewController();
+			handlerAdapter = controller.execute(request, response);
+			log.info("회원 수정 뷰 - " + handlerAdapter);
 		}
 		if(handlerAdapter != null) {
 			if(handlerAdapter.isRedirect()) {

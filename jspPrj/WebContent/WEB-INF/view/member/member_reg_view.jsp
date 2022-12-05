@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,14 +11,48 @@
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
 <script src="js/kakao-addressAPI.js" type="text/javascript"></script>
 <script src="https://kit.fontawesome.com/58abbffa46.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="js/validity.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#dbIdCheck").click(function() {
+			var memberId = $("#memberId").val();
+			if (memberId.search(/\s/) != -1) {	// 정규표현식과 주어진 스트링간에 첫번째로 매치되는 것의 인덱스를 반환한다. 찾지 못하면 -1 를 반환한다.) // \s 공백 정규식
+				alert("아이디에는 공백이 들어갈 수 없습니다.");
+			} else {
+				if (memberId.trim().length != 0) {
+					$.ajax({
+						url : './IdCheck.me',
+						type : 'get',
+						data : {
+							memberId : memberId
+						},
+						success : function(result) {
+							console.log("아이디 값 - " + result);
+							if ($.trim(result) == 1) {
+								alert("이미 등록된 아이디 입니다.");
+								$("#memberId").focus();
+							} else {
+								alert("등록할 수 있는 아이디입니다.");
+								$("#idCheck").val("1");
+								$("#memberPwd").focus();
+							}
+						}
+					});
+				} else {
+					alert("아이디를 입력해주세요.");
+				}
+			}
+		});
+	});
+</script>
 </head>
 <body>
-<!-- Header -->
+	<!-- Header -->
 
-<%@ include file="/layout/header.jsp" %>
+	<%@ include file="/layout/header.jsp"%>
 
-<!-- Header -->
+	<!-- Header -->
 
 	<!-- 회원가입 폼 -->
 
@@ -49,6 +83,8 @@
 												<div class="col-md-6">
 													<input type="text" id="memberId" class="form-control" name="memberId" placeholder="ID">
 												</div>
+												<button type="button" class="btn btn-warning" id="dbIdCheck">중복체크</button>
+												<input type="hidden" name="idCheck" id="idCheck">
 											</div>
 
 											<div class="form-group row">
@@ -59,10 +95,11 @@
 											</div>
 
 											<div class="form-group row">
-												<label for="memberPwdConfirm" class="col-md-4 col-form-label text-md-right"><span class="text-danger">*</span>비밀번호
-													확인</label>
+												<label for="memberPwdConfirm" class="col-md-4 col-form-label text-md-right"><span
+													class="text-danger">*</span>비밀번호 확인</label>
 												<div class="col-md-6">
-													<input type="password" id="memberPwdConfirm" class="form-control" name="memberPwdConfirm" placeholder="Password">
+													<input type="password" id="memberPwdConfirm" class="form-control" name="memberPwdConfirm"
+														placeholder="Password">
 												</div>
 											</div>
 
@@ -96,11 +133,11 @@
 												<label for="address" class="col-md-4 col-form-label text-md-right"></label>
 												<div class="col-sm-5">
 													<input type="text" id="address" name="address" placeholder="주소" class="form-control input-md" readonly>
-													<input type="text" id="addressDetail" name="addressDetail" placeholder="상세주소" class="form-control input-md"> 
-													<input type="text" id="addressExtra" name="addressExtra" placeholder="참고항목" class="form-control input-md">
+													<input type="text" id="addressDetail" name="addressDetail" placeholder="상세주소" class="form-control input-md">
+													<input type="text" id="addressExtra" name="addressExtra" placeholder="참고항목" class="form-control input-md" readonly>
 												</div>
 											</div>
-											
+
 											<div class="form-group row">
 												<label for="cellphone" class="col-md-4 col-form-label text-md-right"><span class="text-danger">*</span>휴대폰</label>
 												<div class="col-md-6">
@@ -111,7 +148,8 @@
 											<div class="form-group row">
 												<label for="email" class="col-md-4 col-form-label text-md-right"><span class="text-danger">*</span>이메일</label>
 												<div class="col-md-6">
-													<input type="text" id="email" name="email" class="form-control" name="permanent-address" placeholder="Email">
+													<input type="email" id="email" name="email" class="form-control" name="permanent-address"
+														placeholder="Email">
 												</div>
 											</div>
 
@@ -121,7 +159,7 @@
 													<input type="text" name="subCellphone" id="subCellphone" class="form-control" placeholder="(선택입력)">
 												</div>
 											</div>
-											
+
 											<div class="form-group row">
 												<label for="companyNumber" class="col-md-4 col-form-label text-md-right">회사전화</label>
 												<div class="col-md-6">
@@ -147,11 +185,11 @@
 	</div>
 
 
-<!-- Footer -->
+	<!-- Footer -->
 
-<%@ include file="/layout/footer.jsp" %>
+	<%@ include file="/layout/footer.jsp"%>
 
-<!-- Footer -->
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<!-- Footer -->
+	
 </body>
 </html>

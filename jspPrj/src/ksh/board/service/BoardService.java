@@ -1,5 +1,5 @@
 package ksh.board.service;
-
+ 
 import java.util.List;
 
 import ksh.board.dto.BoardDTO;
