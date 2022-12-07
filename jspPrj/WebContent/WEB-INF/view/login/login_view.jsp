@@ -36,8 +36,9 @@
 									id="memberPwd" class="form-control">
 							</div>
 							<div class="form-group">
-								<label for="save" class="text-info"><span>Remember me</span> <span><input id="save"
-										name="save" type="checkbox"></span></label><br>
+								<!-- <label for="save" class="text-info"><span>Remember me</span> <span><input id="save"
+										name="save" type="checkbox"></span>
+								</label><br> -->
 								<button type="submit" class="btn btn-info btn-md">로그인</button>
 							</div>
 							<div id="register-link" class="text-right">
