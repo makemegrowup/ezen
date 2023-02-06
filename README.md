@@ -3,7 +3,7 @@
 # 2차
 - [**JSP Project**](https://github.com/makemegrowup/ezen/tree/main/jspPrj)
 # 3차
-- [**Spring board 팀프로젝트 진행중**](https://github.com/acqu-hire/AcquhireTeamPrj)
+- [**Spring board**](https://github.com/acqu-hire/AcquhireTeamPrj) 23.01.01~23.02.06
 
 
 김시형
